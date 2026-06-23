@@ -1,0 +1,65 @@
+╔══════════════════════════════════════════════════════╗
+║         DO'KON QARZ DAFTARI - O'RNATISH             ║
+╚══════════════════════════════════════════════════════╝
+
+Bu to'liq tayyor loyiha. Quyidagi 4 qadam bilan ishga tushiring:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 1-QADAM: Virtual muhit yarating
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  python -m venv venv
+
+  Windows:   venv\Scripts\activate
+  Linux/Mac: source venv/bin/activate
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 2-QADAM: Kerakli paketlarni o'rnating
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  pip install -r requirements.txt
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 3-QADAM: Ma'lumotlar bazasini yarating
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  python manage.py migrate
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ 4-QADAM: Serverni yuring
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  python manage.py runserver
+
+  Brauzerda oching: http://localhost:8000
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ ADMIN PANEL (ixtiyoriy)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  python manage.py createsuperuser
+  http://localhost:8000/admin
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ YANGI FUNKSIYALAR
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ✅ Mijozni o'chirish  → Arxivga o'tadi (yo'qolmaydi)
+  🗄️ Arxiv tugmasi     → O'ng yuqori burchakda, bosing
+  ↩ Arxivdan qaytarish → Mijoz qayta faol bo'ladi
+  🗑️ Arxivdan o'chirish → Butunlay o'chadi
+  🧹 To'langan tozalash → Faqat to'langan qarzlar o'chadi
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ LOYIHA TUZILMASI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  dokon_django/
+  ├── manage.py           ← Boshqaruv fayli
+  ├── requirements.txt    ← Kerakli paketlar
+  ├── db.sqlite3          ← Ma'lumotlar bazasi (migrate dan keyin)
+  ├── core/
+  │   ├── settings.py     ← Sozlamalar
+  │   ├── urls.py         ← Asosiy URL lar
+  │   └── wsgi.py
+  ├── api/
+  │   ├── models.py       ← Mijoz, Qarz, ArxivMijoz
+  │   ├── views.py        ← Barcha API funksiyalar
+  │   ├── urls.py         ← API URL lar
+  │   ├── admin.py        ← Admin panel
+  │   └── migrations/
+  └── templates/
+      └── index.html      ← Frontend
