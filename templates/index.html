@@ -173,6 +173,8 @@
     button.btn-green:hover { background: #3d6649; }
     button.btn-red { background: var(--red); }
     button.btn-red:hover { background: #a93226; }
+    button.btn-brown { background: var(--brown); }
+    button.btn-brown:hover { background: #6f5836; }
 
     .search-box { margin-bottom: 20px; width: 100%; }
 
@@ -192,23 +194,26 @@
       justify-content: space-between;
       align-items: center;
       transition: all 0.2s;
+      gap: 10px;
     }
     .list-item:last-child { border-bottom: none; }
     .list-item:hover, .list-item.active { background: var(--accent-light); }
 
+    .item-info { min-width: 0; }
     .item-info h4 { font-size: 1.05rem; font-weight: 500; margin-bottom: 4px; }
     .item-info p { font-size: 0.85rem; color: var(--ink-light); }
+    .item-info .marta-belgi { font-size: 0.78rem; color: var(--brown); font-weight: 600; margin-top: 2px; }
 
-    .item-meta { text-align: right; display: flex; align-items: center; gap: 10px; }
-    .badge-qarz { background: var(--red-light); color: var(--red); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; }
+    .item-meta { text-align: right; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .badge-qarz { background: var(--red-light); color: var(--red); padding: 4px 10px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
     .badge-qarz.clean { background: var(--green-light); color: var(--green); }
 
     .btn-del { background: transparent; color: var(--red); padding: 5px; border-radius: 4px; }
     .btn-del:hover { background: var(--red-light); color: var(--red); transform: none; }
 
-    .table-container { background: white; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; margin-top: 20px; }
+    .table-container { background: white; border: 1px solid var(--line); border-radius: 6px; overflow-x: auto; margin-top: 20px; }
     table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
-    th { background: var(--paper-dark); padding: 12px 15px; font-weight: 600; border-bottom: 1px solid var(--line); }
+    th { background: var(--paper-dark); padding: 12px 15px; font-weight: 600; border-bottom: 1px solid var(--line); white-space: nowrap; }
     td { padding: 12px 15px; border-bottom: 1px solid var(--line); }
     tr:last-child td { border-bottom: none; }
     tr.tolandi-row { color: #a09085; text-decoration: line-through; background: #fafafa; }
@@ -216,6 +221,16 @@
     .actions-cell { display: flex; gap: 8px; flex-wrap: wrap; }
     .btn-check { background: var(--green-light); color: var(--green); padding: 4px 8px; border-radius: 4px; font-weight: bold; }
     .btn-check:hover { background: var(--green); color: white; }
+
+    /* Summa ustiga bosib to'lov/qo'shish qilish */
+    .summa-bosiladigan {
+      cursor: pointer;
+      border-bottom: 1px dashed var(--brown);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+    .summa-bosiladigan:hover { color: var(--accent); }
+    tr.tolandi-row .summa-bosiladigan { border-bottom-color: #ccc; }
 
     /* Tolangan tozala tugmasi */
     .btn-tozala {
@@ -228,25 +243,134 @@
     }
     .btn-tozala:hover { background: var(--red); color: white; transform: none; }
 
+    /* ===== MIJOZ XULOSASI (umumiy hisob-kitob) ===== */
+    .xulosa-karta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      background: var(--paper-dark);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 22px;
+    }
+    .xulosa-item { text-align: center; }
+    .xulosa-label { font-size: 0.72rem; color: var(--ink-light); text-transform: uppercase; letter-spacing: 0.3px; margin-bottom: 4px; }
+    .xulosa-value { font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+    .xulosa-value.yashil { color: var(--green); }
+    .xulosa-value.qizil { color: var(--red); }
+    .xulosa-eslatma {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      background: white;
+      border: 1px dashed var(--line);
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-bottom: 18px;
+    }
+
+    /* ===== TARIX RO'YXATI ===== */
+    .tarix-container {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      max-height: 260px;
+      overflow-y: auto;
+      margin-top: 10px;
+    }
+    .tarix-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--line);
+      gap: 10px;
+    }
+    .tarix-row:last-child { border-bottom: none; }
+    .tarix-chap { display: flex; align-items: center; gap: 12px; min-width: 0; }
+    .tarix-belgi {
+      flex-shrink: 0;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 1.05rem;
+    }
+    .tarix-belgi.plus { background: var(--red-light); color: var(--red); }
+    .tarix-belgi.minus { background: var(--green-light); color: var(--green); }
+    .tarix-matn { min-width: 0; }
+    .tarix-izoh { font-size: 0.92rem; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tarix-sana { font-size: 0.78rem; color: var(--ink-light); margin-top: 2px; }
+    .tarix-summa { font-weight: 700; font-size: 0.95rem; white-space: nowrap; }
+    .tarix-summa.plus { color: var(--red); }
+    .tarix-summa.minus { color: var(--green); }
+
+    /* ===== TARIX OXIRIDAGI JAMI HISOB-KITOB KARTASI (YANGI) ===== */
+    .tarix-jami-karta {
+      background: var(--paper-dark);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      margin-top: 10px;
+      padding: 12px 16px;
+    }
+    .tarix-jami-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 0.92rem;
+    }
+    .tarix-jami-row span { color: var(--ink-light); }
+    .tarix-jami-row.qolgan {
+      border-top: 1px dashed var(--line);
+      margin-top: 6px;
+      padding-top: 8px;
+      font-size: 1.05rem;
+    }
+    .tarix-jami-row.qolgan span { color: var(--ink); font-weight: 600; }
+    .tarix-jami-row.qolgan strong { color: var(--red); }
+
     .toast {
       position: fixed; bottom: 30px; right: 30px; background: var(--ink); color: white;
       padding: 12px 25px; border-radius: 6px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
       opacity: 0; transform: translateY(20px); transition: all 0.3s; z-index: 200;
+      max-width: 90vw;
     }
     .toast.show { opacity: 1; transform: translateY(0); }
 
     .modal-overlay {
       position: fixed; top:0; left:0; right:0; bottom:0; background: rgba(44,24,16,0.4);
       display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: all 0.2s; z-index: 99;
+      padding: 20px;
     }
     .modal-overlay.open { opacity: 1; pointer-events: auto; }
     .modal { background: var(--paper); border: 2px solid var(--line); padding: 30px; border-radius: 8px; width: 90%; max-width: 400px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
     .modal h3 { font-family: 'Caveat', cursive; font-size: 2rem; margin-bottom: 15px; }
-    .modal-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; }
+    .modal-buttons { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
     .btn-gray { background: #d0c0b0; color: var(--ink); }
     .btn-gray:hover { background: #bcaaa0; }
 
+    /* Qarz amal (to'lov / qo'shish) modali */
+    .qarz-amal-blok { text-align: left; margin-bottom: 18px; }
+    .qarz-amal-blok label { font-size: 0.85rem; color: var(--ink-light); display: block; margin-bottom: 6px; }
+    .qarz-amal-blok input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: white;
+    }
+    .qarz-amal-blok input:focus { border-color: var(--ink); background: white; }
+    .qarz-amal-blok button { width: 100%; margin-top: 10px; }
+    .qarz-amal-ajratuvchi { border-top: 2px dashed var(--line); margin: 18px 0; }
+    .qarz-amal-hozirgi {
+      background: var(--paper-dark);
+      padding: 10px 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+    }
+
     .empty-state { text-align: center; color: var(--ink-light); padding: 40px 20px; font-style: italic; }
+    .empty-state.kichik { padding: 20px; font-size: 0.9rem; }
 
     /* ===== ARXIV PANEL ===== */
     .arxiv-overlay {
@@ -334,6 +458,8 @@
       align-items: center;
       cursor: pointer;
       border-bottom: 1px solid var(--line);
+      flex-wrap: wrap;
+      gap: 10px;
     }
     .arxiv-mijoz-info h4 { font-size: 1.05rem; color: var(--purple); font-weight: 600; }
     .arxiv-mijoz-info p { font-size: 0.82rem; color: var(--ink-light); margin-top: 2px; }
@@ -370,6 +496,8 @@
       padding: 8px 0;
       border-bottom: 1px dashed var(--line);
       font-size: 0.88rem;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .arxiv-qarz-row:last-child { border-bottom: none; }
     .arxiv-qarz-row.tolandi { text-decoration: line-through; color: #aaa; }
@@ -379,8 +507,124 @@
       font-size: 0.85rem;
       display: flex;
       gap: 20px;
+      flex-wrap: wrap;
     }
     .arxiv-summa-blok span { font-weight: 600; }
+
+    /* ===== YIG'ILGAN PULLARNI ARXIVLASH TUGMASI ===== */
+    .btn-stat-tozala {
+      margin-top: 10px;
+      background: transparent;
+      color: var(--green);
+      border: 1px solid var(--green);
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      border-radius: 4px;
+      width: auto;
+    }
+    .btn-stat-tozala:hover { background: var(--green); color: white; transform: none; }
+
+    /* ===== ARXIV TABLARI ===== */
+    .arxiv-tabs { display: flex; border-bottom: 1px solid var(--line); background: white; }
+    .arxiv-tab {
+      flex: 1;
+      background: transparent;
+      color: var(--ink-light);
+      border: none;
+      border-radius: 0;
+      padding: 13px 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      border-bottom: 3px solid transparent;
+    }
+    .arxiv-tab:hover { background: var(--paper-dark); transform: none; }
+    .arxiv-tab.active { color: var(--purple); border-bottom-color: var(--purple); background: var(--purple-light); }
+
+    /* ===== YIG'ILGAN PULLAR ARXIVI KARTALARI ===== */
+    .pul-arxiv-karta {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .pul-arxiv-header {
+      padding: 15px 18px;
+      background: var(--accent-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pul-arxiv-header:hover { background: #f7e4bb; }
+    .pul-arxiv-header h4 { font-size: 1rem; color: var(--ink); font-weight: 600; }
+    .pul-arxiv-header p { font-size: 0.8rem; color: var(--ink-light); margin-top: 2px; }
+    .pul-arxiv-summa { font-size: 1.15rem; font-weight: 700; color: var(--green); white-space: nowrap; }
+    .pul-arxiv-tafsilot {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #fafafa;
+    }
+    .pul-arxiv-tafsilot.ochiq { max-height: 600px; overflow-y: auto; }
+    .pul-tafsilot-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 18px;
+      border-bottom: 1px dashed var(--line);
+      font-size: 0.82rem;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pul-tafsilot-row:last-child { border-bottom: none; }
+
+    /* ===== MOBIL MOSLASHUV (RESPONSIVE) ===== */
+    @media (max-width: 900px) {
+      body { padding: 0; }
+      .notebook { border-left-width: 18px; border-radius: 0; min-height: 100vh; }
+      .notebook::before { left: -13px; }
+      .header { padding: 18px 18px 16px; }
+      .header-top { flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 16px; }
+      h1 { font-size: 2.1rem; gap: 10px; }
+      .btn-arxiv-ochish { justify-content: center; padding: 12px; }
+      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stat-card { padding: 14px; }
+      .stat-value { font-size: 1.3rem; }
+      .content-layout { grid-template-columns: 1fr; min-height: unset; }
+      .left-panel { border-right: none; border-bottom: 3px dashed var(--line); }
+      .panel { padding: 18px; }
+      .panel-title { font-size: 1.7rem; flex-wrap: wrap; gap: 8px; }
+      .row-inputs { grid-template-columns: 1fr; }
+      .xulosa-karta { grid-template-columns: 1fr 1fr; gap: 10px; padding: 12px; }
+      .xulosa-value { font-size: 1rem; }
+      table { font-size: 0.82rem; }
+      th, td { padding: 9px 8px; }
+      .actions-cell { gap: 6px; }
+      .modal { padding: 20px; }
+      .arxiv-overlay { width: 100vw; border-left: none; }
+      .arxiv-header { padding: 18px; }
+      .toast { left: 12px; right: 12px; bottom: 16px; text-align: center; }
+      .list-item { flex-wrap: wrap; }
+      .item-meta { flex-wrap: wrap; justify-content: flex-end; }
+      .arxiv-tab { font-size: 0.78rem; padding: 11px 4px; }
+      .pul-arxiv-header { padding: 12px 14px; }
+      .pul-arxiv-summa { font-size: 1rem; }
+      .tarix-jami-karta { padding: 10px 12px; }
+      .tarix-jami-row { font-size: 0.85rem; }
+      .tarix-jami-row.qolgan { font-size: 0.95rem; }
+    }
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; }
+      .xulosa-karta { grid-template-columns: 1fr 1fr; }
+      h1 { font-size: 1.7rem; }
+      .panel-title { font-size: 1.5rem; }
+      .tarix-jami-row { flex-direction: column; gap: 2px; padding: 6px 0; }
+      .tarix-jami-row span { font-size: 0.78rem; }
+      .tarix-jami-row strong { font-size: 0.95rem; }
+      .tarix-jami-row.qolgan strong { font-size: 1.1rem; }
+    }
   </style>
 </head>
 <body>
@@ -394,11 +638,21 @@
       <h2>🗄️ Arxiv</h2>
       <button class="btn-yop" onclick="arxivYop()">✕ Yopish</button>
     </div>
-    <div class="arxiv-search-wrap">
+    <div class="arxiv-tabs">
+      <button class="arxiv-tab active" id="tabMijozlar" onclick="arxivTabTanla('mijozlar')">👤 Mijozlar Arxivi</button>
+      <button class="arxiv-tab" id="tabPullar" onclick="arxivTabTanla('pullar')">💰 Yig'ilgan Pullar</button>
+    </div>
+    <div class="arxiv-search-wrap" id="arxivSearchWrap">
       <input type="text" id="arxivQidiruv" placeholder="🔍 Ism yoki telefon bo'yicha qidirish..." oninput="arxivFilter()" />
+    </div>
+    <div class="arxiv-search-wrap" id="pullarSearchWrap" style="display:none;">
+      <input type="text" id="pullarQidiruv" placeholder="🔍 Sana, summa yoki mijoz ismi bo'yicha qidirish..." oninput="pullarFilter()" />
     </div>
     <div class="arxiv-body" id="arxivBody">
       <div class="empty-state">Arxiv yuklanmoqda...</div>
+    </div>
+    <div class="arxiv-body" id="arxivPullarBody" style="display:none;">
+      <div class="empty-state">Yuklanmoqda...</div>
     </div>
   </div>
 
@@ -421,6 +675,7 @@
         <div class="stat-card green">
           <div class="stat-label">Yig'ilgan Pullar (To'langan)</div>
           <div class="stat-value" id="statTolangan">0 so'm</div>
+          <button class="btn-stat-tozala" onclick="yigilganPullarniArxivla()" title="Pulni kassadan olganingizda bosing">🧹 Arxivlash</button>
         </div>
       </div>
     </div>
@@ -446,6 +701,27 @@
           <span style="font-size: 1rem; font-family:'Inter';" id="tanlanganMijozTel"></span>
         </div>
 
+        <!-- MIJOZ XULOSASI: hamma qarz va to'lovlar bitta joyda jamlanadi -->
+        <div class="xulosa-karta" id="mijozXulosa">
+          <div class="xulosa-item">
+            <div class="xulosa-label">📥 Jami Olgani</div>
+            <div class="xulosa-value" id="xulosaOlingan">0 so'm</div>
+          </div>
+          <div class="xulosa-item">
+            <div class="xulosa-label">📤 Jami To'lagani</div>
+            <div class="xulosa-value yashil" id="xulosaTolangan">0 so'm</div>
+          </div>
+          <div class="xulosa-item">
+            <div class="xulosa-label">🔴 Hozirgi Qarzi</div>
+            <div class="xulosa-value qizil" id="xulosaJoriyQarz">0 so'm</div>
+          </div>
+          <div class="xulosa-item">
+            <div class="xulosa-label">🔁 Necha Marta</div>
+            <div class="xulosa-value" id="xulosaMarta">0 marta</div>
+          </div>
+        </div>
+        <div class="xulosa-eslatma">💡 Mijoz "men bergan edim" desa — pastdagi <strong>Tarix</strong> ro'yxatidan aynan qaysi kuni va soatda to'lov qabul qilinganini tekshirib ko'rishingiz mumkin.</div>
+
         <div class="input-group">
           <div class="row-inputs">
             <input type="text" id="qMahsulot" placeholder="Mahsulot yoki sabab..." />
@@ -458,6 +734,8 @@
         <div style="text-align: right; margin-bottom: 5px;">
           <button class="btn-tozala" onclick="tolanganTozala()">🧹 To'langan qarzlarni tozalash</button>
         </div>
+
+        <p style="font-size:0.8rem; color:var(--ink-light); margin-bottom:8px;">💡 Summaga bosing — qisman to'lov qilish yoki yangi qarz qo'shish uchun</p>
 
         <div class="table-container">
           <table>
@@ -472,6 +750,32 @@
             <tbody id="qarzlarJadvali"></tbody>
           </table>
           <div id="qarzlarBosh" class="empty-state" style="display: none;">Ushbu mijozda hozircha qarz tarixi mavjud emas.</div>
+        </div>
+
+        <!-- TARIX (qachon qarz olgan, qachon to'lagan) -->
+        <div class="panel-title" style="font-size: 1.7rem; margin-top: 28px; margin-bottom: 8px;">
+          🕐 To'lov va Qarz Tarixi
+        </div>
+        <p style="font-size:0.8rem; color:var(--ink-light); margin-bottom:8px;">
+          <span style="color:var(--red); font-weight:700;">+</span> qarzga qo'shilgan &nbsp;|&nbsp;
+          <span style="color:var(--green); font-weight:700;">−</span> mijoz to'lagan (sana va aniq vaqti bilan)
+        </p>
+        <div class="tarix-container" id="tarixRoyxati"></div>
+
+        <!-- YANGI: Tarix oxiridagi yakuniy hisob-kitob kartasi -->
+        <div class="tarix-jami-karta" id="tarixJamiKarta" style="display:none;">
+          <div class="tarix-jami-row">
+            <span>📥 Jami qarzga yozilgan:</span>
+            <strong id="tarixJamiOlingan">0 so'm</strong>
+          </div>
+          <div class="tarix-jami-row">
+            <span>📤 Jami to'langan:</span>
+            <strong id="tarixJamiTolangan">0 so'm</strong>
+          </div>
+          <div class="tarix-jami-row qolgan">
+            <span>🔴 Hozir qolgan qarzi:</span>
+            <strong id="tarixQolganQarz">0 so'm</strong>
+          </div>
         </div>
       </div>
 
@@ -496,10 +800,37 @@
     </div>
   </div>
 
+  <!-- QISMAN TO'LOV / QARZ QO'SHISH MODALI -->
+  <div class="modal-overlay" id="qarzAmalModal">
+    <div class="modal">
+      <h3 id="qarzAmalMahsulot">Mahsulot</h3>
+      <div class="qarz-amal-hozirgi">Hozirgi qarz: <strong id="qarzAmalHozirgiSumma">0 so'm</strong></div>
+
+      <div class="qarz-amal-blok">
+        <label>💰 Mijoz qancha pul berdi? (qarzdan ayiriladi)</label>
+        <input type="number" id="qarzTolovSumma" placeholder="Masalan: 3000000" />
+        <button class="btn-green" onclick="qarzTolovYubor()">✓ To'lovni Qabul Qilish</button>
+      </div>
+
+      <div class="qarz-amal-ajratuvchi"></div>
+
+      <div class="qarz-amal-blok">
+        <label>➕ Mijoz yana qancha qarzga oldi? (qarzga qo'shiladi)</label>
+        <input type="number" id="qarzQoshimchaSumma" placeholder="Masalan: 500000" />
+        <button class="btn-brown" onclick="qarzQoshishYubor()">➕ Qarzga Qo'shish</button>
+      </div>
+
+      <div class="modal-buttons">
+        <button class="btn-gray" onclick="qarzAmalYop()">Yopish</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     const API = '/api';
     let faolMijozId = null;
     let ochirish_id = null;
+    let amalQarzId = null;
 
     window.onload = () => {
       mijozlarYukla();
@@ -551,10 +882,14 @@
             if (e.target.closest('.btn-del')) return;
             mijozTanla(m.id, m.ism, m.telefon);
           };
+          const martaBelgisi = (m.qarz_soni && m.qarz_soni > 1)
+            ? `<div class="marta-belgi">🔁 ${m.qarz_soni} marta faol qarzi bor</div>`
+            : '';
           div.innerHTML = `
             <div class="item-info">
               <h4>${m.ism}</h4>
               <p>📱 ${m.telefon}</p>
+              ${martaBelgisi}
             </div>
             <div class="item-meta">
               <span class="badge-qarz ${m.umumiy_qarz === 0 ? 'clean' : ''}">
@@ -596,6 +931,7 @@
       document.getElementById('tanlanganMijozTel').innerText = '📱 ' + tel;
       mijozlarYukla();
       qarzlarYukla(id);
+      tarixYukla(id);
     }
 
     // ===== QARZLAR =====
@@ -606,6 +942,12 @@
         const tbody = document.getElementById('qarzlarJadvali');
         tbody.innerHTML = '';
 
+        // Xulosa uchun: hozirgi (to'lanmagan) qarzlar yig'indisi
+        const joriyQarz = data
+          .filter(q => !(q.tolandi === true || q.tolandi === 1))
+          .reduce((s, q) => s + q.summa, 0);
+        document.getElementById('xulosaJoriyQarz').innerText = joriyQarz.toLocaleString() + " so'm";
+
         if (data.length === 0) {
           document.getElementById('qarzlarBosh').style.display = 'block';
           return;
@@ -614,14 +956,20 @@
 
         data.forEach(q => {
           const tr = document.createElement('tr');
-          if (q.tolandi === true || q.tolandi === 1) tr.className = 'tolandi-row';
+          const tolanganmi = (q.tolandi === true || q.tolandi === 1);
+          if (tolanganmi) tr.className = 'tolandi-row';
           const sana = new Date(q.created_at).toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+          const mahsulotXavfsiz = q.mahsulot.replace(/'/g, "\\'");
           tr.innerHTML = `
             <td><strong>${q.mahsulot}</strong></td>
-            <td>${q.summa.toLocaleString()} so'm</td>
+            <td>
+              <span class="summa-bosiladigan" onclick="qarzAmalOch(${q.id}, ${mijoz_id}, '${mahsulotXavfsiz}', ${q.summa})" title="Bosing: to'lov qilish yoki qarz qo'shish">
+                ${q.summa.toLocaleString()} so'm ✏️
+              </span>
+            </td>
             <td style="font-size:0.8rem; color:var(--ink-light);">${sana}</td>
             <td class="actions-cell">
-              ${!(q.tolandi === true || q.tolandi === 1) ? `<button class="btn-check" onclick="qarzTolandi(${q.id}, ${mijoz_id})">✓</button>` : '🟢 Yopilgan'}
+              ${!tolanganmi ? `<button class="btn-check" onclick="qarzTolandi(${q.id}, ${mijoz_id})">✓</button>` : '🟢 Yopilgan'}
               <button class="btn-del" onclick="qarzOchir(${q.id}, ${mijoz_id})">🗑️</button>
             </td>
           `;
@@ -646,6 +994,7 @@
           document.getElementById('qMahsulot').value = '';
           document.getElementById('qSumma').value = '';
           qarzlarYukla(faolMijozId);
+          tarixYukla(faolMijozId);
           mijozlarYukla();
           statistikaYukla();
         }
@@ -657,6 +1006,7 @@
         await fetch(`${API}/qarzlar/${qarz_id}/tolandi`, { method: 'PATCH' });
         toast("💚 Qarz to'landi deb belgilandi!");
         qarzlarYukla(mijoz_id);
+        tarixYukla(mijoz_id);
         mijozlarYukla();
         statistikaYukla();
       } catch (e) { toast('❌ Xato yuz berdi'); }
@@ -672,6 +1022,129 @@
       } catch (e) { toast('❌ Xato yuz berdi'); }
     }
 
+    // ===== QISMAN TO'LOV / QARZ QO'SHISH =====
+    function qarzAmalOch(qarz_id, mijoz_id, mahsulot, summa) {
+      amalQarzId = qarz_id;
+      faolMijozId = mijoz_id; // joriy mijoz ekanligiga ishonch hosil qilamiz
+      document.getElementById('qarzAmalMahsulot').innerText = mahsulot;
+      document.getElementById('qarzAmalHozirgiSumma').innerText = summa.toLocaleString() + " so'm";
+      document.getElementById('qarzTolovSumma').value = '';
+      document.getElementById('qarzQoshimchaSumma').value = '';
+      document.getElementById('qarzAmalModal').classList.add('open');
+    }
+
+    function qarzAmalYop() {
+      document.getElementById('qarzAmalModal').classList.remove('open');
+      amalQarzId = null;
+    }
+
+    async function qarzTolovYubor() {
+      if (!amalQarzId) return;
+      const summa = parseFloat(document.getElementById('qarzTolovSumma').value);
+      if (!summa || summa <= 0) return toast("⚠️ To'g'ri summa kiriting!");
+      try {
+        const res = await fetch(`${API}/qarzlar/${amalQarzId}/tolov`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ summa })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          if (data.tolandi) {
+            toast("💚 To'lov qabul qilindi, qarz to'liq yopildi!");
+          } else {
+            toast(`💰 To'lov qabul qilindi! Qolgan qarz: ${data.qolgan_summa.toLocaleString()} so'm`);
+          }
+          qarzAmalYop();
+          qarzlarYukla(faolMijozId);
+          tarixYukla(faolMijozId);
+          mijozlarYukla();
+          statistikaYukla();
+        } else {
+          toast(data.xato || '❌ Xato yuz berdi');
+        }
+      } catch (e) { toast("❌ Server bilan aloqa yo'q"); }
+    }
+
+    async function qarzQoshishYubor() {
+      if (!amalQarzId) return;
+      const summa = parseFloat(document.getElementById('qarzQoshimchaSumma').value);
+      if (!summa || summa <= 0) return toast("⚠️ To'g'ri summa kiriting!");
+      try {
+        const res = await fetch(`${API}/qarzlar/${amalQarzId}/qoshish`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ summa })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          toast(`➕ Qarzga qo'shildi! Yangi summa: ${data.yangi_summa.toLocaleString()} so'm`);
+          qarzAmalYop();
+          qarzlarYukla(faolMijozId);
+          tarixYukla(faolMijozId);
+          mijozlarYukla();
+          statistikaYukla();
+        } else {
+          toast(data.xato || '❌ Xato yuz berdi');
+        }
+      } catch (e) { toast("❌ Server bilan aloqa yo'q"); }
+    }
+
+    // ===== TARIX (qachon qarz olgan, qachon to'lagan) =====
+    async function tarixYukla(mijoz_id) {
+      const container = document.getElementById('tarixRoyxati');
+      const tarixJamiKarta = document.getElementById('tarixJamiKarta');
+      try {
+        const res = await fetch(`${API}/mijozlar/${mijoz_id}/tarix`);
+        const data = await res.json();
+        container.innerHTML = '';
+
+        // Xulosa uchun: butun tarix bo'yicha jami olingan, jami to'langan va necha marta olgani
+        const jamiOlingan = data.filter(t => t.turi === 'qoshildi').reduce((s, t) => s + t.summa, 0);
+        const jamiTolangan = data.filter(t => t.turi === 'tolov').reduce((s, t) => s + t.summa, 0);
+        const martaSoni = data.filter(t => t.turi === 'qoshildi').length;
+        document.getElementById('xulosaOlingan').innerText = jamiOlingan.toLocaleString() + " so'm";
+        document.getElementById('xulosaTolangan').innerText = jamiTolangan.toLocaleString() + " so'm";
+        document.getElementById('xulosaMarta').innerText = martaSoni + " marta";
+
+        if (data.length === 0) {
+          container.innerHTML = '<div class="empty-state kichik">Hali tarix mavjud emas.</div>';
+          tarixJamiKarta.style.display = 'none';
+          return;
+        }
+
+        data.forEach(t => {
+          const qoshildimi = (t.turi === 'qoshildi');
+          const sana = new Date(t.sana).toLocaleDateString('uz-UZ', {
+            weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+          });
+          const row = document.createElement('div');
+          row.className = 'tarix-row';
+          row.innerHTML = `
+            <div class="tarix-chap">
+              <span class="tarix-belgi ${qoshildimi ? 'plus' : 'minus'}">${qoshildimi ? '+' : '−'}</span>
+              <div class="tarix-matn">
+                <div class="tarix-izoh">${t.izoh || (qoshildimi ? 'Qarzga yozildi' : "To'lov qilindi")}</div>
+                <div class="tarix-sana">🗓️ ${sana}</div>
+              </div>
+            </div>
+            <div class="tarix-summa ${qoshildimi ? 'plus' : 'minus'}">${qoshildimi ? '+' : '−'}${t.summa.toLocaleString()} so'm</div>
+          `;
+          container.appendChild(row);
+        });
+
+        // YANGI: tarix oxiridagi yakuniy hisob-kitob kartasini to'ldirish
+        const qolganQarz = jamiOlingan - jamiTolangan;
+        document.getElementById('tarixJamiOlingan').innerText = jamiOlingan.toLocaleString() + " so'm";
+        document.getElementById('tarixJamiTolangan').innerText = jamiTolangan.toLocaleString() + " so'm";
+        document.getElementById('tarixQolganQarz').innerText = qolganQarz.toLocaleString() + " so'm";
+        tarixJamiKarta.style.display = 'block';
+      } catch (e) {
+        container.innerHTML = '<div class="empty-state kichik">❌ Tarix yuklanmadi.</div>';
+        tarixJamiKarta.style.display = 'none';
+      }
+    }
+
     // ===== TO'LANGAN QARZLARNI TOZALASH =====
     async function tolanganTozala() {
       if (!faolMijozId) return;
@@ -684,6 +1157,147 @@
           statistikaYukla();
         }
       } catch (e) { toast('❌ Xato yuz berdi'); }
+    }
+
+    // ===== YIG'ILGAN PULLARNI ARXIVLASH =====
+    async function yigilganPullarniArxivla() {
+      const hozirgiSumma = document.getElementById('statTolangan').innerText;
+      if (!confirm(`Diqqat! Hozirgi "Yig'ilgan Pullar" (${hozirgiSumma}) arxivga saqlanadi va hisob 0 dan qaytadan boshlanadi.\n\nBuni faqat pulni kassadan haqiqatda olganingizda bosing. Mijozlarning shaxsiy qarz tarixiga bu ta'sir qilmaydi.\n\nDavom etasizmi?`)) return;
+      try {
+        const res = await fetch(`${API}/tolangan/arxivla`, { method: 'POST' });
+        const data = await res.json();
+        if (res.ok) {
+          toast(`🧹 ${data.jami_summa.toLocaleString()} so'm arxivga saqlandi, hisob yangilandi!`);
+          statistikaYukla();
+        } else {
+          toast(data.xato || '❌ Xato yuz berdi');
+        }
+      } catch (e) { toast("❌ Server bilan aloqa yo'q"); }
+    }
+
+    // ===== ARXIV TABLARI (Mijozlar / Pullar) =====
+    function arxivTabTanla(tab) {
+      const mBtn = document.getElementById('tabMijozlar');
+      const pBtn = document.getElementById('tabPullar');
+      const mBody = document.getElementById('arxivBody');
+      const pBody = document.getElementById('arxivPullarBody');
+      const mQidiruvWrap = document.getElementById('arxivSearchWrap');
+      const pQidiruvWrap = document.getElementById('pullarSearchWrap');
+      if (tab === 'pullar') {
+        pBtn.classList.add('active'); mBtn.classList.remove('active');
+        pBody.style.display = 'block'; mBody.style.display = 'none';
+        mQidiruvWrap.style.display = 'none'; pQidiruvWrap.style.display = 'block';
+        pullarArxivYukla();
+      } else {
+        mBtn.classList.add('active'); pBtn.classList.remove('active');
+        mBody.style.display = 'block'; pBody.style.display = 'none';
+        pQidiruvWrap.style.display = 'none'; mQidiruvWrap.style.display = 'block';
+      }
+    }
+
+    let pullarArxivData = [];
+
+    async function pullarArxivYukla() {
+      const body = document.getElementById('arxivPullarBody');
+      body.innerHTML = '<div class="empty-state">Yuklanmoqda...</div>';
+      try {
+        const res = await fetch(`${API}/tolangan/arxiv`);
+        pullarArxivData = await res.json();
+        document.getElementById('pullarQidiruv').value = '';
+        pullarKorsatish(pullarArxivData);
+      } catch (e) {
+        body.innerHTML = '<div class="empty-state">❌ Yuklanmadi.</div>';
+      }
+    }
+
+    function pullarFilter() {
+      const s = document.getElementById('pullarQidiruv').value.toLowerCase().trim();
+      if (!s) return pullarKorsatish(pullarArxivData);
+
+      const filtered = pullarArxivData.filter(a => {
+        const sanaMatn = new Date(a.ochirilgan_vaqt).toLocaleDateString('uz-UZ', {
+          weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        }).toLowerCase();
+        const summaMatn = String(a.jami_summa);
+        const mijozlarMatn = (a.tafsilotlar || [])
+          .map(t => (t.mijoz || '') + ' ' + (t.izoh || ''))
+          .join(' ')
+          .toLowerCase();
+        return sanaMatn.includes(s) || summaMatn.includes(s) || mijozlarMatn.includes(s);
+      });
+      pullarKorsatish(filtered, s);
+    }
+
+    function pullarKorsatish(data, qidiruv = '') {
+      const body = document.getElementById('arxivPullarBody');
+
+      if (data.length === 0) {
+        body.innerHTML = qidiruv
+          ? `<div class="empty-state">🔍 "<b>${qidiruv}</b>" bo'yicha hech narsa topilmadi.</div>`
+          : '<div class="empty-state">📭 Hali hech qanday pul arxivlanmagan.<br>Yuqoridagi "Yig\'ilgan Pullar" kartasidagi 🧹 tugmasini bosganingizda shu yerda ko\'rinadi.</div>';
+        return;
+      }
+
+      body.innerHTML = '';
+      data.forEach((a, idx) => {
+        const karta = document.createElement('div');
+        karta.className = 'pul-arxiv-karta';
+
+        const ochirilganSana = new Date(a.ochirilgan_vaqt).toLocaleDateString('uz-UZ', {
+          weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit'
+        });
+
+        let oraliq = '';
+        if (a.boshlanish_sana && a.tugash_sana) {
+          const b = new Date(a.boshlanish_sana).toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit' });
+          const t = new Date(a.tugash_sana).toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit' });
+          oraliq = `${b} — ${t} oralig'idagi to'lovlar`;
+        }
+
+        let tafsilotHtml = '';
+        (a.tafsilotlar || []).forEach(t => {
+          const tSana = new Date(t.sana).toLocaleDateString('uz-UZ', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
+          tafsilotHtml += `
+            <div class="pul-tafsilot-row">
+              <span>👤 ${t.mijoz}${t.izoh ? ' — ' + t.izoh : ''}</span>
+              <span>${t.summa.toLocaleString()} so'm · ${tSana}</span>
+            </div>
+          `;
+        });
+
+        karta.innerHTML = `
+          <div class="pul-arxiv-header" onclick="pulArxivToggle(${idx})">
+            <div>
+              <h4>🗓️ ${ochirilganSana}</h4>
+              <p>${a.tranzaksiyalar_soni} ta to'lov ${oraliq ? '· ' + oraliq : ''} — bosib tafsilotni ko'ring 👇</p>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="pul-arxiv-summa">${a.jami_summa.toLocaleString()} so'm</div>
+              <button class="btn-ochir-arxiv" title="Bu arxiv yozuvini butunlay o'chirish" onclick="event.stopPropagation(); pulArxivOchir(${a.id})">🗑️</button>
+            </div>
+          </div>
+          <div class="pul-arxiv-tafsilot" id="pulTafsilot${idx}">${tafsilotHtml || '<div style="padding:10px;color:#aaa;">Tafsilot mavjud emas</div>'}</div>
+        `;
+        body.appendChild(karta);
+      });
+    }
+
+    function pulArxivToggle(idx) {
+      const el = document.getElementById('pulTafsilot' + idx);
+      el.classList.toggle('ochiq');
+    }
+
+    async function pulArxivOchir(arxiv_id) {
+      if (!confirm("Bu arxiv yozuvini butunlay o'chirib tashlamoqchimisiz? Bu amalni qaytarib bo'lmaydi!")) return;
+      try {
+        const res = await fetch(`${API}/tolangan/arxiv/${arxiv_id}/ochir`, { method: 'DELETE' });
+        if (res.ok) {
+          toast("🗑️ Arxiv yozuvi o'chirildi");
+          pullarArxivYukla();
+        } else {
+          toast('❌ Xato yuz berdi');
+        }
+      } catch (e) { toast("❌ Server bilan aloqa yo'q"); }
     }
 
     // ===== MODAL =====
@@ -720,6 +1334,7 @@
     async function arxivOch() {
       document.getElementById('arxivPanel').classList.add('ochiq');
       document.getElementById('arxivBackdrop').classList.add('ochiq');
+      arxivTabTanla('mijozlar');
       await arxivYukla();
     }
 
